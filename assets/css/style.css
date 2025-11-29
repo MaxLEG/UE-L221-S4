@@ -996,40 +996,6 @@ a:hover {
   }
 }
 
-/* Formulaire form_UE_L221
-****************************************/
-.form_UE_L221 {
-  max-width: 800px;
-  margin-left: auto;
-  margin-right: auto;
-  padding: 30px;
-  margin-top: 50px;
-  margin-bottom: 50px;
-  background-color: var(--white-color);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  border-radius: 15px;
-}
-
-.form_UE_L221 .form-columns {
-  display: flex;
-  gap: 30px;
-  margin-bottom: 20px;
-}
-
-.form_UE_L221 label,
-.form_UE_L221 input[type="text"],
-.form_UE_L221 input[type="email"],
-.form_UE_L221 input[type="tel"],
-.form_UE_L221 select {
-  display: block;
-  width: 300px;
-  margin-left: 15px;
-  margin-bottom: 15px;
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-}
-
 /* Footer
 ****************************************/
 #footer {
