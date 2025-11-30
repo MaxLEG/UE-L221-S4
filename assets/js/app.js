@@ -13,30 +13,25 @@ $(document).ready(function ($) {
 
 // script pour la semaine 3
 document.addEventListener("DOMContentLoaded", () => {
-  // sible le conteneur pour video
   const container = document.getElementById("video-interface-container");
-  if (!container) return; // si conteneur pas trouvé - script s'arret
-  // creation des elements - bouton1, bouton 2, video
-  // boutonn 1
+  if (!container) return;
+
   const btnOne = document.createElement("button");
   btnOne.textContent = "Regardez la vidéo de promotion";
   btnOne.classList.add("button-js-element", "btn-show");
-  // vidéo
+
   const videoContainer = document.createElement("div");
   videoContainer.classList.add("video-js-element");
-  // bouton 2 - masqué
+
   const btnTwo = document.createElement("button");
   btnTwo.textContent = "Masquer la vidéo";
   btnTwo.classList.add("button-js-element", "btn-hide");
 
-  // injection des elements dans le conteneur
   container.appendChild(btnOne);
   container.appendChild(videoContainer);
   container.appendChild(btnTwo);
 
-  // fonction de basculement
   const showVideo = () => {
-    // injection de iframe de video YouTube
     videoContainer.innerHTML = `
     <iframe
       width="560"
@@ -47,9 +42,8 @@ document.addEventListener("DOMContentLoaded", () => {
       allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
       referrerpolicy="strict-origin-when-cross-origin"
       allowfullscreen
-    ></iframe>;
+    ></iframe>
     `;
-    // transition CSS
     btnOne.style.display = "none";
     videoContainer.classList.add("is-visible");
     btnTwo.classList.add("is-visible");
@@ -57,19 +51,53 @@ document.addEventListener("DOMContentLoaded", () => {
   };
 
   const hideVideo = () => {
-    // manipulation pour trasition CSS
     videoContainer.classList.remove("is-visible");
     btnTwo.classList.remove("is-visible");
     btnTwo.style.display = "none";
     btnOne.style.display = "block";
-    // arrete la lecture de video pour qu'il ne continue en arriere-plan
     videoContainer.innerHTML = "";
   };
 
-  // ecouteurs d'evenements
   btnOne.addEventListener("click", showVideo);
   btnTwo.addEventListener("click", hideVideo);
 
-  // initialisation de l'etat cahché
   btnTwo.style.display = "none";
+
+  const form = document.querySelector(".devis-form");
+  if (form) {
+    form.addEventListener("submit", (e) => {
+      e.preventDefault();
+
+      // AS: for the sakes of it, client-side checking for script
+      const allInputs = form.querySelectorAll("input, select");
+      let hasScript = false;
+      const regex = /<script>/i;
+
+      allInputs.forEach((input) => {
+        if (regex.test(input.value)) {
+          hasScript = true;
+        }
+      });
+
+      if (hasScript) {
+        alert("HAHAHAHAH GOOD TRY");
+        return;
+      }
+
+      const inputs = form.querySelectorAll("input[required], select[required]");
+      let valid = true;
+      inputs.forEach((input) => {
+        if (!input.value) {
+          valid = false;
+        }
+      });
+
+      if (valid) {
+        alert("Demande envoyée !");
+        form.reset();
+      } else {
+        alert("Veuillez remplir les champs obligatoires.");
+      }
+    });
+  }
 });
