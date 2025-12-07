@@ -1,0 +1,199 @@
+/* Formulaire form_UE_L221
+****************************************/
+.form_UE_L221 {
+  position: relative; /* For pseudo-element positioning */
+  max-height: 80px;
+  max-width: 800px;
+  margin: 50px auto;
+  padding: 20px;
+  background-color: var(--white-color);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 15px;
+  overflow: hidden;
+  box-sizing: border-box;
+  /* animation au survol - delay collapse to prevent accidental closing */
+  transition: max-height 0.8s ease-in-out 0.3s, box-shadow 0.3s ease;
+}
+
+/* Expand hover area to parent/surroundings */
+.form_UE_L221::before {
+  content: "";
+  position: absolute;
+  top: -50px;
+  bottom: -50px;
+  left: -50px;
+  right: -50px;
+  z-index: -1;
+}
+
+.form_UE_L221:hover {
+  max-height: 1200px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  /* Remove delay on expand */
+  transition: max-height 0.8s ease-in-out 0s, box-shadow 0.3s ease;
+}
+
+.form_UE_L221 h2 {
+  text-align: center;
+  margin: 0;
+  margin-bottom: 30px;
+  line-height: 40px; /* AS: centering issues */
+}
+
+.form-columns {
+  display: flex;
+  gap: 30px;
+  margin-bottom: 20px;
+}
+
+.form-columns > div {
+  flex: 1;
+}
+
+.form_UE_L221 label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: bold;
+}
+
+.form_UE_L221 input[type="text"],
+.form_UE_L221 input[type="email"],
+.form_UE_L221 input[type="tel"],
+.form_UE_L221 select {
+  display: block;
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 20px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  box-sizing: border-box;
+  transition: border-color 0.3s;
+}
+
+.form_UE_L221 input:focus,
+.form_UE_L221 select:focus {
+  border-color: var(--primary-color);
+  outline: none;
+}
+
+.form_UE_L221 button[type="submit"] {
+  width: 100%;
+  padding: 15px;
+  background-color: var(--primary-color);
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 16px;
+  cursor: pointer;
+  margin-top: 10px;
+  transition: background-color 0.3s;
+}
+
+.form_UE_L221 button[type="submit"]:hover {
+  background-color: #5e8e41;
+}
+
+.devis-form,
+#video-interface-container {
+  opacity: 0;
+  transition: opacity 1s ease 0.3s;
+}
+
+.form_UE_L221:hover .devis-form,
+.form_UE_L221:hover #video-interface-container {
+  opacity: 1;
+}
+
+/* styles de l'interface video JS  - CSS form_UE_L221
+****************************************/
+#video-interface-container {
+  text-align: center;
+  margin-top: 30px;
+  padding-bottom: 20px;
+}
+
+/* style pour des boutons */
+.button-js-element {
+  padding: 12px 24px;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 6px;
+  border: none;
+  margin: 10px auto;
+  display: block;
+  transition: transform 0.2s, max-height 0.5s ease, opacity 0.5s ease,
+    margin 0.5s ease;
+  max-height: 60px; /* Approximate height of button */
+  opacity: 1;
+  overflow: hidden;
+}
+
+/* animation au survol */
+.button-js-element:hover {
+  transform: scale(1.05);
+}
+
+.btn-show {
+  background-color: var(--primary-color);
+  color: white;
+}
+
+.btn-hide {
+  background-color: var(--secondary-color);
+  color: white;
+}
+
+/* Hidden state for buttons and video */
+.button-js-element.is-hidden,
+.video-js-element {
+  max-height: 0;
+  opacity: 0;
+  margin: 0;
+  padding-top: 0;
+  padding-bottom: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.video-js-element {
+  transition: max-height 0.8s ease, opacity 0.5s ease, margin 0.5s ease;
+}
+
+/* etat visible */
+.video-js-element.is-visible,
+.button-js-element.is-visible {
+  max-height: 500px; /* Enough for video */
+  opacity: 1;
+  margin: 20px auto;
+  pointer-events: auto;
+}
+
+.button-js-element.is-visible {
+  max-height: 60px;
+  padding: 12px 24px;
+}
+
+/* iframe prend la largeur de son conteneur visible */
+.video-js-element iframe {
+  width: 100%;
+  max-width: 560px;
+  border-radius: 8px;
+}
+
+/* Animation for form appearance */
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Removed fadeIn as we use transitions now */
+
+.form_UE_L221:hover .devis-form {
+  animation: slideIn 0.8s ease-out forwards;
+}
