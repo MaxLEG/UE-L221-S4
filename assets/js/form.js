@@ -2,7 +2,10 @@
 document.addEventListener("DOMContentLoaded", () => {
   const container = document.getElementById("video-interface-container");
   if (!container) return;
-
+  /* -----------
+  suppresion de code de creation des boutons et de container video car desormais il est inutile
+  ------------- */
+  /*
   const btnOne = document.createElement("button");
   btnOne.textContent = "Regardez la vidéo de promotion";
   btnOne.classList.add("button-js-element", "btn-show");
@@ -50,7 +53,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // AS: initial state
   btnTwo.classList.add("is-hidden");
-
+*/
+  /* ------ je garde la logique de validation de formulaire ------------*/
   const form = document.querySelector(".devis-form");
   if (form) {
     form.addEventListener("submit", (e) => {
