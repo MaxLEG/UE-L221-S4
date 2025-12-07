@@ -1,26 +1,157 @@
-/* Formulaire form_UE_L221
-****************************************/
+/* AS: form specific styles, revamped to match the requested 'Aria' template aesthetic */
 
 .form_UE_L221 {
-  /* masque initialement le contenu et définit la hauteur de la barre */
-  max-height: 80px;
-  overflow: hidden;
-
-  /* centrer et limiter la largeur (similaire à l'ancien form.css) */
-  max-width: 800px;
-  margin: 50px auto;
-
-  /* transition pour l'effet d'ouverture/fermeture (avec un petit délai comme avant) */
-  transition: max-height 0.8s ease-in-out 0.3s, box-shadow 0.3s ease;
+  background-color: #fff;
+  padding: 4rem 2rem;
+  border-radius: 0.5rem;
+  box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+  /* AS: ensuring no layout shifts */
+  box-sizing: border-box;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
 }
 
-/* état d'expansion au survol */
-.form_UE_L221:hover {
-  /* Hauteur suffisante pour afficher tout le formulaire */
-  max-height: 1200px;
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+/* AS: styling the form legend to be more subtle and modern */
+.devis-form legend {
+  color: #333;
+  font-family: "Open Sans", sans-serif; /* AS: assuming Open Sans or similar sans-serif for the modern look */
+  font-weight: 700;
+  margin-bottom: 2rem;
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  border-bottom: none; /* MF: removing default border */
 }
 
-.form_UE_L221.is-expanded {
-  max-height: 1200px !important;
+/* MF: labels should be clear, slightly smaller, and gray */
+.devis-form label {
+  font-weight: 400;
+  color: #7d7d7d;
+  margin-bottom: 0.25rem;
+  font-size: 0.9rem;
+}
+
+/* AS: input styling to match the 'Aria' template - clean, flat, with subtle borders */
+.devis-form .form-control,
+.devis-form .form-select {
+  background-color: #f7f9fb;
+  border: 1px solid #c4c4c4;
+  border-radius: 0.25rem;
+  padding: 0.75rem 1rem;
+  color: #555;
+  font-size: 0.9rem;
+  transition: all 0.3s;
+}
+
+/* AS: input focus states for better accessibility and user feedback */
+.devis-form .form-control:focus,
+.devis-form .form-select:focus {
+  background-color: #fff;
+  border-color: var(--primary-color);
+  /* AS: very subtle shadow for focus state, keeping it minimalist */
+  box-shadow: none; /* MF: removing default bootstrap shadow for a cleaner look */
+}
+
+/* AS: primary button styling - rounded, bold, uppercase */
+.devis-form .btn-primary {
+  background-color: var(--primary-color);
+  border: 2px solid var(--primary-color);
+  border-radius: 2rem; /* AS: pill shape as per example */
+  padding: 0.75rem 2rem;
+  font-weight: 700;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  transition: all 0.3s ease;
+}
+
+.devis-form .btn-primary:hover {
+  background-color: #5e8e41; /* MF: Darker green to match M'INSCRIRE style */
+  border-color: #5e8e41;
+  color: #fff;
+  /* MF: slight lift on hover, but nothing drastic */
+  transform: translateY(-1px);
+}
+
+/* AS: styles for the dynamic video interface elements */
+#video-interface-container .btn-info {
+  /* AS: using the secondary color for the 'discover' action */
+  background-color: var(--secondary-color);
+  border: 2px solid var(--secondary-color);
+  border-radius: 2rem;
+  color: #fff;
+  font-weight: 700;
+  text-transform: uppercase;
+  transition: all 0.3s ease;
+}
+
+#video-interface-container .btn-info:hover {
+  background-color: #60100a; /* MF: Darker red on hover */
+  border-color: #60100a;
+  color: #fff; /* MF: Keeping text white for readability */
+}
+
+#video-interface-container .btn-secondary {
+  background-color: #6c757d;
+  border: 2px solid #6c757d;
+  border-radius: 2rem;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+#video-interface-container .btn-secondary:hover {
+  background-color: transparent;
+  color: #6c757d;
+}
+
+/* AS: ensuring the video container doesn't overflow or cause shifts */
+#video-interface-container .ratio {
+  /* MF: minimalist shadow, barely there */
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1) !important;
+  background-color: #000;
+  border-radius: 0.5rem; /* AS: rounding corners of video container */
+}
+
+/* AS: Side text styling to match Aria template */
+.text-container {
+  margin-bottom: 2rem;
+  padding-right: 2rem; /* MF: spacing between text and form */
+}
+
+.li-space-lg li {
+  margin-bottom: 0.75rem;
+  position: relative;
+  padding-left: 1.5rem; /* MF: space for bullet if we had one, or just indentation */
+}
+
+.li-space-lg li::before {
+  /* AS: adding a square bullet to match the Aria style description "fas fa-square" replacement */
+  content: "■";
+  color: var(--primary-color);
+  position: absolute;
+  left: 0;
+  top: 0;
+  font-size: 0.8rem;
+  line-height: 1.5;
+}
+
+.media {
+  display: flex;
+  align-items: flex-start;
+}
+
+.media-body {
+  flex: 1;
+  color: #555;
+}
+
+/* MF: Adjusting h2 in text container to be left aligned */
+.text-container h2 {
+  text-align: left;
+  margin-bottom: 1.5rem;
+  text-transform: uppercase;
+}
+
+.text-container h2::after {
+  margin: 1rem 0 0 0; /* MF: align underline to left */
 }

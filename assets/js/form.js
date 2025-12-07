@@ -1,66 +1,73 @@
-// script pour la semaine 3
+// AS: script for week 3 & 4, reworked to be cleaner and more robust
 document.addEventListener("DOMContentLoaded", () => {
+  // AS: part 1 - video interaction logic
   const container = document.getElementById("video-interface-container");
-  if (!container) return;
-  /* -----------
-  suppresion de code de creation des boutons et de container video car desormais il est inutile
-  ------------- */
-  /*
-  const btnOne = document.createElement("button");
-  btnOne.textContent = "Regardez la vidéo de promotion";
-  btnOne.classList.add("button-js-element", "btn-show");
+  
+  if (container) {
+      // MF: creating the main trigger button dynamically
+      const btnShow = document.createElement("button");
+      btnShow.textContent = "Découvrez nos services";
+      // AS: using bootstrap classes but keeping it simple, no heavy shadows
+      btnShow.className = "btn btn-info btn-lg text-white transition-all";
+      
+      // AS: creating the wrapper for the video content
+      const videoWrapper = document.createElement("div");
+      // MF: using ratio-16x9 for proper video sizing, removed shadow-lg for a flatter look
+      videoWrapper.className = "ratio ratio-16x9 mt-4 rounded overflow-hidden";
+      videoWrapper.style.display = "none"; // AS: hidden by default
 
-  const videoContainer = document.createElement("div");
-  videoContainer.classList.add("video-js-element");
+      // AS: creating the iframe element
+      const iframe = document.createElement("iframe");
+      iframe.src = "https://www.youtube.com/embed/2wz_DS5lZGI?si=q2sEwCXKAdfgUAPp";
+      iframe.title = "YouTube video player";
+      iframe.allow = "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share";
+      iframe.allowFullscreen = true;
+      
+      videoWrapper.appendChild(iframe);
 
-  const btnTwo = document.createElement("button");
-  btnTwo.textContent = "Masquer la vidéo";
-  btnTwo.classList.add("button-js-element", "btn-hide");
+      // AS: creating the hide button
+      const btnHide = document.createElement("button");
+      btnHide.textContent = "Masquer la vidéo";
+      btnHide.className = "btn btn-secondary btn-lg mt-3";
+      btnHide.style.display = "none"; // AS: hidden by default
 
-  container.appendChild(btnOne);
-  container.appendChild(videoContainer);
-  container.appendChild(btnTwo);
+      // AS: injecting elements into the dom
+      container.appendChild(btnShow);
+      container.appendChild(videoWrapper);
+      container.appendChild(btnHide);
 
-  const showVideo = () => {
-    videoContainer.innerHTML = `
-    <iframe
-      width="560"
-      height="315"
-      src="https://www.youtube.com/embed/2wz_DS5lZGI?si=q2sEwCXKAdfgUAPp"
-      title="YouTube video player"
-      frameborder="0"
-      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-      referrerpolicy="strict-origin-when-cross-origin"
-      allowfullscreen
-    ></iframe>
-    `;
-    btnOne.classList.add("is-hidden");
-    videoContainer.classList.add("is-visible");
-    btnTwo.classList.remove("is-hidden");
-    btnTwo.classList.add("is-visible");
-  };
+      // MF: interaction logic using jquery for smooth sliding effects
+      
+      $(btnShow).on("click", function() {
+        // hide the trigger button
+        $(this).hide();
+        
+        // slide the video down smoothly
+        $(videoWrapper).slideDown(800, "swing");
+        
+        // show the hide button
+        $(btnHide).fadeIn();
+      });
 
-  const hideVideo = () => {
-    videoContainer.classList.remove("is-visible");
-    btnTwo.classList.remove("is-visible");
-    btnTwo.classList.add("is-hidden");
-    btnOne.classList.remove("is-hidden");
-    videoContainer.innerHTML = "";
-  };
+      $(btnHide).on("click", function() {
+        // AS: hide the close button
+        $(this).hide();
+        
+        // slide the video up
+        $(videoWrapper).slideUp(800, "swing", function() {
+            // MF: once animation is done, bring back the trigger button
+            $(btnShow).fadeIn();
+        });
+      });
+  }
 
-  btnOne.addEventListener("click", showVideo);
-  btnTwo.addEventListener("click", hideVideo);
-
-  // AS: initial state
-  btnTwo.classList.add("is-hidden");
-*/
-  /* ------ je garde la logique de validation de formulaire ------------*/
+  // AS: part 2 - form validation logic
   const form = document.querySelector(".devis-form");
   if (form) {
     form.addEventListener("submit", (e) => {
       e.preventDefault();
 
-      // AS: for the sakes of it, client-side checking for script
+      // AS: basic security check to prevent script injection
       const allInputs = form.querySelectorAll("input, select");
       let hasScript = false;
       const regex = /<script>/i;
@@ -72,10 +79,11 @@ document.addEventListener("DOMContentLoaded", () => {
       });
 
       if (hasScript) {
-        alert("HAHAHAHAH GOOD TRY");
+        alert("Tentative de script détectée !");
         return;
       }
 
+      //checking required fields
       const inputs = form.querySelectorAll("input[required], select[required]");
       let valid = true;
       inputs.forEach((input) => {
@@ -92,15 +100,4 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     });
   }
-});
-
-$(document).ready(function () {
-  const $videoCollapse = $("#videoCollapse");
-  const $formContainer = $(".form_UE_L221");
-  $videoCollapse.on("show.bs.collapse", function () {
-    $formContainer.addClass("is-expanded");
-  });
-  $videoCollapse.on("hide.bs.collapse", function () {
-    $formContainer.removeClass("is-expanded");
-  });
 });

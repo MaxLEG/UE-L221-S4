@@ -1,81 +1,169 @@
-/* AS: lot, and honestly, most of the implemented features had a sole meaning of grasping and understanding the technical capabilities given by CSS3 and had no means
+/* AS: lot, and honestly, most of the implemented features had a sole meaning of grasping and understanding the technical capabilities given by css3 and had no means
 to actually improve the visual state of the site in a meaningful way */
-/*--- logo nav header rotation sublogic  ---*/
-@keyframes spin-x {
-  0% {
-    transform: rotateY(0deg);
-  }
-  100% {
-    transform: rotateY(360deg);
-  }
+
+/* AS: fixing bootstrap interference with the main layout */
+/* AS: Scoped reset to restore S3 layout behavior for non-Bootstrap sections */
+#header .row,
+.section-tips .row,
+.section-ideas .row,
+#footer .row {
+  margin-top: 0;
 }
-.header-logo {
+
+#header .row > *,
+.section-tips .row > *,
+.section-ideas .row > *,
+#footer .row > * {
+  width: auto;
+  max-width: none;
+  margin-top: 0;
+}
+
+/* AS: Global Polish - Typography & Spacing */
+p {
+  line-height: 1.6; /* MF: improved readability */
+  color: #555; /* MF: softer black for text */
+}
+
+/* AS: Global Button Polish - Pill shape & Hover */
+.button {
+  border-radius: 2rem;
+  transition: all 0.3s ease;
+  font-family: "Open Sans", sans-serif;
+  letter-spacing: 0.5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(116, 170, 83, 0.3);
+  background-color: #5e8e41; /* MF: Darker green to match M'INSCRIRE style */
+  color: #fff; /* MF: Keeping text white */
+  border-color: #5e8e41;
+}
+
+/* AS: Tips Section Polish - Cards & Images */
+.tips-item {
+  border-radius: 0.5rem;
+  overflow: hidden; /* MF: ensures image corners are clipped */
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  background-color: #fff;
+}
+
+.tips-item:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+.tips-img {
+  transition: transform 0.5s ease;
+}
+
+.tips-item:hover .tips-img {
+  transform: scale(1.05); /* MF: subtle zoom on hover */
+}
+
+/* AS: Newsletter Polish */
+.aside-newsletter {
+  /* MF: Reverting to red background as requested ("proper red color back as it was") */
+  background-color: var(--secondary-color);
+  padding: 3rem 0;
+}
+
+/* MF: Ensuring text is white on the red background */
+.newsletter-form-excerpt {
+  color: #fff !important;
+}
+
+.newsletter-form-input {
+  border-radius: 2rem;
+  border: none; /* MF: removing border for cleaner look on red */
+  padding: 0.5rem 1rem;
+  transition: box-shadow 0.3s ease;
+}
+
+.newsletter-form-input:focus {
+  box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.3); /* MF: white glow focus */
+  outline: none;
+}
+
+/* AS: Header Rework - Fonts, Animations, Rounded Borders as requested */
+
+/* AS: Modern font for header elements */
+.header-name,
+.header-baseline,
+.header-nav-link,
+.main-nav-link {
+  font-family: "Open Sans", sans-serif;
+}
+
+/* AS: Rounded borders and smooth transitions for nav items */
+.header-nav-link {
+  border-radius: 2rem;
+  transition: all 0.3s ease;
+  padding: 0.5rem 1.2rem; /* MF: slightly more padding for pill shape */
+}
+
+/* AS: Hover effect using the green color */
+.header-nav-link:hover {
+  background-color: var(--primary-color);
+  color: #fff;
+  transform: translateY(-2px);
+}
+
+/* AS: Specific styling for the coordinates button to match the green theme */
+.header-nav-link-coordinates {
+  border: 1px solid var(--primary-color) !important; /* MF: overriding default red */
+  color: var(--primary-color) !important;
+  border-radius: 2rem;
+}
+
+.header-nav-link-coordinates:hover {
+  background-color: var(--primary-color) !important;
+  color: #fff !important;
+  box-shadow: 0 4px 10px rgba(116, 170, 83, 0.3);
+}
+
+/* AS: Main nav items styling */
+.main-nav-link {
+  border-radius: 2rem;
+  transition: all 0.3s ease;
+}
+
+.main-nav-link:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+  transform: scale(1.05);
+}
+
+/* AS: logo nav header rotation sublogic - REMOVED as per request to rollback */
+/* MF: restoring logo size constraint with higher specificity to override scoped reset */
+#header .header-logo {
   width: 9rem;
-  animation: spin-x 8s ease-in-out infinite;
-  perspective: 500px;
-  transform-style: preserve-3d;
-  filter: drop-shadow(4px 4px 6px rgba(0, 0, 0, 0.2));
 }
 
+/* MF: avoiding layout shift by using text-shadow instead of font-weight change */
 .main-nav-item:hover {
-  font-weight: bold;
-}
-/* something light to start with for a floating siteName*/
-@keyframes float-y {
-  0% {
-    transform: translateY(0px);
-  }
-  50% {
-    transform: translateY(-4px);
-  }
-  100% {
-    transform: translateY(0px);
-  }
+  text-shadow: 0 0 1px currentColor;
 }
 
-.header-name {
-  display: inline-block;
-  animation: float-y 3s ease-in-out infinite;
-}
+/* AS: floating sitename - REMOVED  */
 
-/* AS: skew tilt effect added for a more 2008's look to the site */
-.main-nav-item {
-  transition: transform 0.3s ease;
-}
+/* AS: skew tilt effect - */
 
-.main-nav-item:hover {
-  transform: skewX(-10deg);
-}
-
-.search-form-submit {
-  animation-name: wiggle;
-  animation-duration: 2s;
-  animation-iteration-count: infinite;
-  animation-direction: alternate;
-  animation-timing-function: cubic-bezier();
-}
-
-.search-form-submit:hover {
-  animation-play-state: paused;
-}
-
-/* search form lift on hover */
+/* MF: search form lift on hover - REMOVED as per request */
 .search-form {
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.search-form:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+/* AS: coherent smooth transition for search button */
+.search-form-submit {
+  transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
-@keyframes wiggle {
-  0% {
-    transform: rotateY(10deg);
-  }
-  100% {
-    transform: rotateY(-15deg);
-  }
+.search-form-submit:hover {
+  background-color: #5e8e41; /* Darker green */
+  transform: scale(1.05);
 }
 
 .footer-stats-item {
@@ -96,15 +184,28 @@ to actually improve the visual state of the site in a meaningful way */
 }
 
 h2 {
-  /* used the site https://zoptv.github.io/3dcss/index.html for some filler 3D look.  */
-  font-family: Arial, sans-serif;
-  color: #75aa53;
-  font-weight: bold;
-  text-shadow: 0px 0px 0 rgb(109, 162, 75), 1px 1px 0 rgb(101, 154, 67),
-    2px 2px 0 rgb(94, 147, 60), 3px 3px 0 rgb(86, 139, 52),
-    4px 4px 0 rgb(78, 131, 44), 5px 5px 0 rgb(70, 123, 36),
-    6px 6px 5px rgba(0, 0, 0, 0.15), 6px 6px 1px rgba(0, 0, 0, 0.5),
-    0px 0px 5px rgba(0, 0, 0, 0.2);
+  /* AS: revamped h2 to match the 'Aria' template style - cleaner, modern, with a subtle underline */
+  font-family: "Open Sans", sans-serif; /* AS: switching to sans-serif for headers as per example */
+  color: #333;
+  font-weight: 700;
+  text-transform: uppercase;
+  text-align: center;
+  margin-bottom: 2rem;
+  position: relative;
+  text-shadow: none; /* MF: removing the heavy text shadow */
+  background: transparent; /* MF: removing background */
+  border: none; /* MF: removing borders */
+  padding: 0;
+}
+
+h2::after {
+  /* AS: adding the decorative underline from the example */
+  content: "";
+  display: block;
+  width: 60px;
+  height: 2px;
+  background-color: var(--primary-color);
+  margin: 1rem auto 0;
 }
 
 @keyframes shadow-cycle {
@@ -149,6 +250,7 @@ h2 {
   }
 }
 
+/* AS: rolling back ideas-item to previous state as requested */
 /* AS: sub-adjusting grid panel turn effect on hover */
 .ideas-item {
   transition: transform 0.4s ease;
@@ -160,22 +262,15 @@ h2 {
   box-shadow: -5px 5px 10px rgba(0, 0, 0, 0.2);
 }
 
-/* scaling the bounds of the button for RSS email sub*/
-@keyframes pulse-scale {
-  0% {
-    transform: scale(1);
-  }
-  50% {
-    transform: scale(1.05);
-  }
-  100% {
-    transform: scale(1);
-  }
+/* scaling the bounds of the button for RSS email sub - REMOVED as per request */
+.newsletter-form-submit {
+  transition: background-color 0.3s ease;
 }
 
-.newsletter-form-submit {
-  animation: pulse-scale 4s infinite;
+.newsletter-form-submit:hover {
+  background-color: #5e8e41;
 }
+
 
 /* so far the best addition immersion-wise */
 .tops-item {
