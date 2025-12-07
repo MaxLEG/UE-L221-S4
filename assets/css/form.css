@@ -20,3 +20,7 @@
   max-height: 1200px;
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
 }
+
+.form_UE_L221.is-expanded {
+  max-height: 1200px !important;
+}

@@ -93,3 +93,14 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 });
+
+$(document).ready(function () {
+  const $videoCollapse = $("#videoCollapse");
+  const $formContainer = $(".form_UE_L221");
+  $videoCollapse.on("show.bs.collapse", function () {
+    $formContainer.addClass("is-expanded");
+  });
+  $videoCollapse.on("hide.bs.collapse", function () {
+    $formContainer.removeClass("is-expanded");
+  });
+});
